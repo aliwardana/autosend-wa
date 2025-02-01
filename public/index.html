@@ -1,25 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Auto Send By Ali Wardana</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Auto Send</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-    <h1>WhatsApp Auto Send By Ali Wardana</h1>
-    <div id="status">Silahkan login</div>
-    <div id="qr-code"></div>
-    <div id="link-container" style="display:none;">
-        <h2>Siap untuk Mengirim Pesan</h2>
-        <p>Untuk mengirim pesan silahkan gunakan format dibawah ini:</p>
+
+  <!-- Header -->
+  <header>
+    <h1>WhatsApp Auto Send</h1>
+    <span class="creator">create by Ali Wardana</span>
+  </header>
+
+  <!-- Form Login -->
+  <div id="login-container">
+    <h2>Login</h2>
+    <input type="password" id="password-input" placeholder="Masukkan Password">
+    <button id="login-button">Masuk</button>
+    <p id="login-error" style="display: none;">⚠ Password salah!</p>
+  </div>
+
+  <!-- Main Content (Tampil setelah login form benar) -->
+  <div id="main-container" style="display: none;">
+    <div class="content">
+      <!-- Kolom Kiri: Informasi -->
+      <div class="info">
+        <!--<h2>WhatsApp Tools</h2>-->
+        <p>Whatsapp tools untuk mengirim pesan langsung via URL. Gunakan format berikut untuk mengirim pesan:</p>
         <ol>
-            <li>http://localhost:3000/send-message?phone=(no telepon tujuan)&text=(pesan yang ingin dikirim)</li>
-            <li>Phone Number: Nomor telepon yang ingin dikirimi pesan, harus diisi dalam format internasional tanpa tanda plus (+).</li>
-            <li>Text: Pesan yang ingin dikirimkan ke nomor telepon tersebut.</li>
+            <li id="send-message-instruksi"></li>
+            <script>
+              document.getElementById('send-message-instruksi').textContent = window.location.origin + '/send-message?phone=(nomor tujuan)&text=(pesan)';
+            </script>            
+          <li>Nomor tujuan harus dalam format internasional tanpa tanda plus (+).</li>
         </ol>
-        <button id="logout-button">Logout</button>
+      </div>
+
+      <!-- Kolom Kanan: QR Code & Status -->
+      <div class="qr-status">
+        <!-- Kotak Biru untuk QR Code (atau centang jika sudah login) -->
+        <div id="qr-container">
+          <img id="qr-image" src="" alt="QR Code WhatsApp">
+        </div>
+        <!-- Kotak Merah untuk status dan tombol logout -->
+        <div id="status-container">
+          <p id="status-text">Menunggu login...</p>
+          <button id="logout-button" style="display: none;">Logout</button>
+        </div>
+      </div>
     </div>
+  </div>
+
 </body>
 </html>
