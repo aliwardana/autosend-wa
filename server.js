@@ -14,7 +14,10 @@ function createClient() {
     }
 
     client = new Client({
-        authStrategy: new LocalAuth()
+        authStrategy: new LocalAuth(),
+        puppeteer: {
+            args: ['--no-sandbox', '--disable-setuid-sandbox']
+        }
     });
 
     client.on('qr', async (qr) => {
