@@ -1,0 +1,20 @@
+# Gunakan Node.js versi terbaru
+FROM node:18
+
+# Atur working directory
+WORKDIR /app
+
+# Copy file package.json dan package-lock.json
+COPY backend/package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy seluruh kode backend
+COPY backend .
+
+# Expose port 3000 (atau yang digunakan)
+EXPOSE 3000
+
+# Jalankan server
+CMD ["node", "server.js"]
