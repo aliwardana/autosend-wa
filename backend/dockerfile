@@ -1,20 +1,37 @@
-# Gunakan Node.js versi terbaru
-FROM node:18
+# Gunakan base image yang ringan dan kompatibel
+FROM node:18-bullseye
 
-# Atur working directory
+# Set working directory di dalam container
 WORKDIR /app
 
-# Copy file package.json dan package-lock.json
-COPY backend/package*.json ./
+# Salin file package.json dan package-lock.json
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
-# Copy seluruh kode backend
-COPY backend .
+# Instal dependencies tambahan untuk Puppeteer
+RUN apt-get update && apt-get install -y \
+  libnss3 \
+  libatk1.0-0 \
+  libx11-xcb1 \
+  libxcb-dri3-0 \
+  libxcomposite1 \
+  libxdamage1 \
+  libxrandr2 \
+  libgbm1 \
+  libasound2 \
+  libpangocairo-1.0-0 \
+  libpango-1.0-0 \
+  libcairo2 \
+  libatk-bridge2.0-0 \
+  && rm -rf /var/lib/apt/lists/*
 
-# Expose port 3000 (atau yang digunakan)
+# Salin semua file proyek
+COPY . .
+
+# Expose port aplikasi (sesuai dengan yang digunakan di server.js)
 EXPOSE 3000
 
-# Jalankan server
+# Perintah untuk menjalankan aplikasi
 CMD ["node", "server.js"]
